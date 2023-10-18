@@ -38,5 +38,8 @@ func (date Date) MarshalJSON() ([]byte, error) {
 }
 
 func (date *Date) UnmarshalJSON(b []byte) error {
+	if string(b) == "\"\"" {
+		return nil
+	}
 	return (*time.Time)(date).UnmarshalJSON(b)
 }

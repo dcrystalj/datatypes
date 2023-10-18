@@ -69,3 +69,16 @@ func TestJSONEncoding(t *testing.T) {
 
 	AssertEqual(t, date, got)
 }
+
+func TestEmptyJSONDateEncoding(t *testing.T) {
+	type EmptyJSON struct {
+		D datatypes.Date
+	}
+
+	var got EmptyJSON
+	if err := json.Unmarshal([]byte(`{"D":""}`), &got); err != nil {
+		t.Fatalf("failed to decode to datatypes.Date: %v", err)
+	}
+
+	AssertEqual(t, got.D, datatypes.Date{})
+}
